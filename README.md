@@ -5,116 +5,94 @@
   <source media="(prefers-reduced-motion: reduce)" srcset="assets/empryo-mote-light.svg" />
   <source media="(prefers-color-scheme: dark)" srcset="assets/empryo-mote-dark-normal.gif" />
   <source media="(prefers-color-scheme: light)" srcset="assets/empryo-mote-light-normal.gif" />
-  <img src="assets/empryo-mote-light-normal.gif" width="150" height="150" alt="Empryo" />
+  <img src="assets/empryo-mote-light-normal.gif" width="120" height="120" alt="Mote, the Empryo mascot" />
 </picture>
 
 # Empryo
 
-<sub>previously **SoulForge**</sub>
+Knows your code by heart.
 
-**Code in context.**
+[Download](https://empryo.com/download) · [Docs](https://empryo.com/docs) · [Benchmarks](https://empryo.com/benchmarks) · [Changelog](https://empryo.com/changelog) · [Discord](https://discord.gg/fX4H7GYSMJ)
 
-AI coding with a map of your codebase.
+<a href="https://discord.gg/fX4H7GYSMJ"><img alt="Join the Empryo Discord" src="https://img.shields.io/discord/1502779577804656874?label=Discord&logo=discord&logoColor=white&color=5865F2&style=flat" /></a>
+<a href="https://x.com/BniWael"><img alt="Follow @BniWael on X" src="https://img.shields.io/badge/follow-%40BniWael-000000?logo=x&logoColor=white&style=flat" /></a>
 
-[Website](https://empryo.com) · [Download](https://empryo.com/download) · [Benchmarks](https://empryo.com/benchmarks) · [Changelog](https://empryo.com/changelog) · [Discussions](https://github.com/proxysoul/soulforge/discussions) · [Discord](https://discord.gg/fX4H7GYSMJ)
-
-<img alt="Empryo in action" src="assets/intro_picture.png" width="880" />
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/desktop-dark.webp" />
+  <source media="(prefers-color-scheme: light)" srcset="assets/desktop-light.webp" />
+  <img alt="The Empryo desktop app: the live map of a repository, one file and everything that imports it" src="assets/desktop-light.webp" width="880" />
+</picture>
 
 </div>
 
----
+<details>
+<summary>Watch the demo</summary>
 
-**SoulForge is now Empryo** — the same symbol-level, graph-powered agent, rebuilt with a desktop app, a faster engine, and a composable core. This repository is Empryo's public home for issues and discussions.
+<picture>
+  <source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)" srcset="assets/empryo-demo-still-dark.webp" />
+  <source media="(prefers-reduced-motion: reduce)" srcset="assets/empryo-demo-still-light.webp" />
+  <source media="(prefers-color-scheme: dark)" srcset="assets/empryo-demo-dark.webp" />
+  <source media="(prefers-color-scheme: light)" srcset="assets/empryo-demo-light.webp" />
+  <img alt="Empryo maps a repository, follows its connections, edits code and shows the diff in desktop and terminal views" src="assets/empryo-demo-light.webp" width="880" />
+</picture>
+
+[Full video, dark](assets/empryo-demo-dark.mp4) · [Full video, light](assets/empryo-demo-light.mp4)
+
+</details>
 
 ## Install
 
 ```bash
-# macOS / Linux
-curl -fsSL https://empryo.com/install.sh | bash
-
-# Windows (PowerShell)
-irm https://empryo.com/install.ps1 | iex
+curl -fsSL https://empryo.com/install.sh | bash   # macOS, Linux
+irm https://empryo.com/install.ps1 | iex          # Windows
 ```
 
-Official installers and direct downloads are available only from [empryo.com/download](https://empryo.com/download). Empryo is not distributed through Homebrew, WinGet, or npm.
+Desktop app and installers: [empryo.com/download](https://empryo.com/download) only.
 
-```bash
-empryo --set-key anthropic sk-ant-...   # or run locally with Ollama — no key required
-cd your-project
-empryo
-```
+## What it does
 
-Desktop app and prebuilt binaries: [empryo.com/download](https://empryo.com/download). Runs on **macOS, Linux, and Windows**. Do not download Empryo binaries from GitHub Releases or third-party package managers.
+- **It reads the map first.** It knows what an edit will touch before it makes it.
+- **It edits by name.** A function or class, replaced exactly.
+- **It checks its own work.** Typecheck, lint and tests, fixed in the same turn.
+- **It remembers.** Decisions and past bugs, per project.
 
-## Why Empryo
-
-Most coding agents grep, read whole files, and patch strings — they never know what depends on the code they just changed. Empryo builds understanding before it mutates anything:
-
-- **It maps before it reads.** On launch, tree-sitter parses your repo into a live graph — every symbol, import, and call site, ranked by PageRank and git co-change. Graph queries answer in milliseconds and cost zero LLM tokens.
-- **It knows the blast radius.** Before an edit, the agent sees what imports a file, what historically changes with it, and how far a change ripples — "what breaks if I touch this?" is answered before the first keystroke.
-- **It edits through the AST.** 65+ symbol-level operations, atomic batches with all-or-nothing rollback, structural edits across 30+ languages, and a typecheck as the gate. Nothing breaks on whitespace.
-- **It treats tokens as spend.** The graph does the navigation models usually burn context on — fewer reads, fewer steps, smaller bills at any scale.
-
-## What's inside
-
-| | |
-|---|---|
-| **Code genome** | live dependency graph: tree-sitter across 30+ languages, PageRank + git co-change ranking, blast-radius tags, millisecond search |
-| **Symbol-level editing** | 65+ AST operations (atomic, with rollback) + structural edits in 30+ languages |
-| **Multi-agent** | parallel explore/edit agents with a shared I/O cache — cheap models scout, strong models write |
-| **Task router** | ten routable roles, any model in any seat, per tab — your own mixture of experts |
-| **Time machine** | every prompt is a git checkpoint; rewind code and conversation together, land on any turn |
-| **Three surfaces** | native desktop app, full terminal UI, headless CLI for scripts and CI — one genome, three phenotypes |
-| **LSP + MCP** | 576+ language servers via Mason, any MCP server, 13 lifecycle hooks |
-| **Free compaction** | structural context compaction with no LLM call — long sessions stay cheap |
-
-## One agent, many brains
-
-Empryo isn't one model in a loop — it's a crew, and you assign the seats. Every role is a routable slot that takes any model from any of the 22 providers:
+## Where Empryo stands
 
 <div align="center">
+<a href="https://empryo.com/benchmarks">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/benchmark-dark.webp" />
+  <source media="(prefers-color-scheme: light)" srcset="assets/benchmark-light.webp" />
+  <img alt="Every published run added up: Empryo against OpenCode, Claude Code and pi, on time and cost" src="assets/benchmark-light.webp" width="880" />
+</picture>
+</a>
 
-`brain` · `spark` <sub>scout</sub> · `ember` <sub>code</sub> · `explore` · `verify` <sub>review</sub> · `goal review` · `desloppify` · `summarize` · `compact` · `web search`
-
+<sub>Every published run, added up. Shorter bars win. Checked against the bill. [All rounds](https://empryo.com/benchmarks)</sub>
 </div>
 
-- **Per tab.** Each workspace tab carries its own routing — a frontier model writing code in one tab, a fast cheap one triaging issues in the next, a local model on a private repo in a third.
-- **Per config.** Set defaults globally or per project; override any slot from the tab. Cheap models scout, strong models write, reviewers judge with clean context.
-- **Custom agents.** Define your own agents — a prompt, a model, a tool policy — and dispatch them alongside the built-ins. Mix and match providers freely inside a single run.
-- **Cache-aware by design.** Routing keeps prompt-cache prefixes stable — sub-agents inherit their parent's cache line, so repeated context bills at cache-read rates instead of full price.
-- **Costs, itemized.** Live spend tracking per model, per sub-agent, per tab, per session, per day — you always know where the tokens went.
+## Desktop, terminal or headless
 
-## Benchmarks
+One agent, the same map and memory, wherever you run it.
 
-Head-to-head against pi — same models, same repositories, same tasks. The graph does more with less:
+<div align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/terminal-dark.webp" />
+  <source media="(prefers-color-scheme: light)" srcset="assets/terminal-light.webp" />
+  <img alt="The Empryo terminal app" src="assets/terminal-light.webp" width="880" />
+</picture>
+</div>
 
-| | Round 1 <sub>3 bugs × 3 models</sub> | Round 2 <sub>5 real bugs · hono / zod / ky</sub> |
-|---|:---:|:---:|
-| Bugs fixed | **8/9** vs 7/9 | **7/10** vs 6/10 |
-| Cost | **28% lower** — $1.13 vs $1.58 | **23% lower** — $7.08 vs $9.19 |
-| Wall-clock | **57% faster** — 4m 16s vs 10m | **32% faster** — 22m 30s vs 32m 55s |
-| Efficiency | **5.7× fewer input tokens** — 1.09M vs 6.21M | **28% fewer steps** — 274 vs 382 |
+## Public core and engine
 
-Round 2 used real bugs from merged PRs (post-training-cutoff, history scrubbed, regression tests injected after each run). Full methodology and transcripts: [empryo.com/benchmarks](https://empryo.com/benchmarks) · reproduce at [proxysoul/pi-vs-empryo-bench](https://github.com/proxysoul/pi-vs-empryo-bench).
+This repository contains the public SoulForge v2 core and engine code under its [existing license](LICENSE). It is not the full source of Empryo v3; the current desktop app, new surfaces and newest features are developed privately.
 
-## Private by design
+## Empryo v3 usage
 
-Empryo runs entirely on your machine. Bring your own key — Anthropic, OpenAI, Google, Groq, DeepSeek, Bedrock, and 16 more, or any OpenAI-compatible endpoint — or run fully local with Ollama / LM Studio. No proxy in the middle, no code leaving your machine, no per-seat fee. **Free to use.**
+Empryo v3 is free for personal and internal business use, including company development, paid client work and headless CI. You can sell the work you create with it. Selling, hosting, wrapping or bundling Empryo itself as a commercial offering requires the owner's explicit prior written permission in a separate commercial license. Contact **empryo@proxysoul.com**.
 
-## SoulForge
+The [Empryo v3 license](EMPRYO_V3_LICENSE.md) applies only to distributions supplied under those terms. It does not replace this repository's [SoulForge license](LICENSE), revoke earlier grants or change their existing conversion rights.
 
-SoulForge remains available to download and install, and continues to receive fixes for bugs and critical issues. New features and active development have moved to Empryo.
-
-```bash
-brew tap proxysoul/tap && brew install soulforge
-# or
-bun install -g @proxysoul/soulforge
-```
-
-## This repository
-
-- **[Issues](https://github.com/proxysoul/soulforge/issues)** and **[Discussions](https://github.com/proxysoul/soulforge/discussions)** — the home for Empryo bug reports, questions, and ideas.
-- The SoulForge source remains archived here under its existing license (see [`LICENSE`](LICENSE)).
+Bugs go to [Issues](https://github.com/proxysoul/soulforge/issues), ideas to [Discussions](https://github.com/proxysoul/soulforge/discussions).
 
 ## Sponsors
 
@@ -124,12 +102,10 @@ bun install -g @proxysoul/soulforge
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/llmg-white.svg" />
     <source media="(prefers-color-scheme: light)" srcset="assets/llmg-dark.svg" />
-    <img alt="LLM Gateway" src="assets/llmg-dark.svg" height="52" />
+    <img alt="LLM Gateway" src="assets/llmg-dark.svg" height="48" />
   </picture>
 </a>
 
-<sub>One API, 200+ models, up to 30% off frontier. Wired in as the <code>llmgateway</code> provider.</sub>
-
-<sub><a href="https://github.com/sponsors/proxysoul">Sponsor</a> · <a href="https://paypal.me/waeru">PayPal</a> · <a href="BACKERS.md">Featured sponsors and all backers</a></sub>
+<sub>[Sponsor on GitHub](https://github.com/sponsors/proxysoul) · [All backers](BACKERS.md)</sub>
 
 </div>
